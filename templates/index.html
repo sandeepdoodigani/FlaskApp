@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flask Application</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <style>
+  
+   .navbar-default {
+		background-color: #09655c;
+		border-color: #09655c;
+	}
+	.navbar-default .navbar-nav>li>a {
+		color: white;
+	}
+	.navbar-default .navbar-brand {
+		color: white;
+	}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Sample Flask</a>
+    </div>
+   <ul class="nav navbar-nav navbar-right">
+      <li ><a  href="/">Home</a></li>
+      <li class="active"><a href="#">Register</a></li>
+	  <li ><a href="/graph">Graph</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4" ></div>
+		<div class="col-sm-4" >
+		<form method="POST" action="/usr">
+   
+			<H2>Enter your details </H2> <br>
+			Enter ID <input type = "text" name= "fid" class="form-control" /> <br>
+			Name <input type = "text" name = "lname" class="form-control" /> <br>
+			Branch <input type = "text" name= "lbranch" class="form-control" /> <br>
+			Year <input type = "text" name = "lyear" class="form-control" /> <br>
+			CGPA <input type = "text" name = "lcgpa" class="form-control" /> <br>
+			<input type = "submit" class="btn btn-success">
+		</form> 
+		</div>
+		<div class="col-sm-4" ></div>
+  </div>
+  
+</div>
+
+</body>
+</html>

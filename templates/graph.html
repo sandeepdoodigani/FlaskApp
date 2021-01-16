@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flask Application</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <style>
+  
+   .navbar-default {
+		background-color: #09655c;
+		border-color: #09655c;
+	}
+	.navbar-default .navbar-nav>li>a {
+		color: white;
+	}
+	.navbar-default .navbar-brand {
+		color: white;
+	}
+  </style>
+
+
+
+    <!-- JQuery links  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <!--High CHART LIVE  -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">Sample Flask</a>
+		</div>
+	   <ul class="nav navbar-nav navbar-right">
+		  <li ><a  href="/">Home</a></li>
+		  <li ><a href="#">Register</a></li>
+		  <li class="active"><a href="/graph">Graph</a></li>
+		</ul>
+	  </div>
+	</nav>
+ 
+
+    <br>
+    <br>
+
+
+    <div class="container-fluid">
+        <!-- Example row of columns -->
+        <div class="row">
+			 <div class="col-sm-3" ></div>
+			<div class="col-sm-6" >
+				<div class="container-fluid" id="data-container">
+
+				</div>
+			</div>
+			<div class="col-sm-3" ></div>
+        </div>
+    </div>
+
+
+
+    <script>
+        var chart;
+
+        function requestData()
+        {
+            // Ajax call to get the Data from Flask
+            var requests = $.get('/data');
+
+            var tm = requests.done(function (result)
+            {
+                var series = chart.series[0],
+                    shift = series.data.length > 20;
+
+                // add the point
+                chart.series[0].addPoint(result, true, shift);
+
+                // call it again after one second
+                setTimeout(requestData, 2000);
+            });
+        }
+
+        $(document).ready(function() {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'data-container',
+                    defaultSeriesType: 'spline',
+                    events: {
+                        load: requestData
+                    }
+                },
+                title: {
+                    text: 'Live random data'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    maxZoom: 20 * 1000
+                },
+                yAxis: {
+                    minPadding: 0.2,
+                    maxPadding: 0.2,
+                    title: {
+                        text: 'Value',
+                        margin: 80
+                    }
+                },
+                series: [{
+                    name: 'Random data',
+                    data: []
+                }]
+            });
+
+        });
+    </script>
+</body>
+
+</html>

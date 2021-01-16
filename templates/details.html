@@ -1,0 +1,88 @@
+<HTML>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flask Application</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style/mycss.css') }}">
+  <style>
+  
+   .navbar-default {
+		background-color: #09655c;
+		border-color: #09655c;
+	}
+	.navbar-default .navbar-nav>li>a {
+		color: white;
+	}
+	.navbar-default .navbar-brand {
+		color: white;
+	}
+  </style>
+</head>
+<BODY class="body1">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Sample Flask</a>
+    </div>
+   <ul class="nav navbar-nav navbar-right">
+      <li class="active"><a  href="#">Home</a></li>
+      <li><a href="#">Register</a></li>
+	  <li><a href="/graph">Graph</a></li>
+    </ul>
+  </div>
+</nav>
+  
+
+
+<div class="container">
+   <div class="col-sm-3" ></div>
+	<div class="col-sm-6" >
+		<form action='/res' method="post">
+			
+			<H2>Enter your details </H2><br>
+			
+			<label for="email">Roll Number :</label>
+			 <input type = "text" name= "roll" id="rcorners1" class="form-control"> <br><br>
+			<button type = "submit" class= "btn btn-info" >Submit</button>
+			
+		</form>
+		<br>
+		<br>
+		<form method="post">
+		    <H3> Student Details </H3><br>
+			<table class="table table-striped">
+			<thead>
+			  <tr>
+				<th>Name </th>
+				<th>Branch </th>
+				<th>Year </th>
+				<th>CGPA </th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<td>{{name}}</td>
+				<td>{{branch}}</td>
+				<td>{{year}}</td>
+				<td>{{cgpa}}</td>
+			  </tr>
+			  
+			</tbody>
+		  </table>
+		</form>
+
+		 <center>
+		   <button class ="btn btn-primary" onclick="window.location.href = '/form';">Add User</button>
+		  </center>
+		  
+		</div>
+		<div class="col-sm-4" ></div>  
+</div>
+</BODY>
+</HTML>

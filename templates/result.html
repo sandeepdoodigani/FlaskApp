@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flask Application</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <style>
+  
+   .navbar-default {
+		background-color: #09655c;
+		border-color: #09655c;
+	}
+	.navbar-default .navbar-nav>li>a {
+		color: white;
+	}
+	.navbar-default .navbar-brand {
+		color: white;
+	}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Sample Flask</a>
+    </div>
+   <ul class="nav navbar-nav navbar-right">
+      <li class="active"><a  href="#">Home</a></li>
+      <li><a href="#">Register</a></li>
+    </ul>
+  </div>
+</nav>
+  
+  <div class="container">
+      <table border = 1>
+
+		<th> 
+			<tr style="color: green; ">     
+				<td>Serial Number</td> 
+				<td>Pokemon Name</td> 
+			</tr> 
+		</th> 
+		  
+		<!-- For loop logic of jinja template -->
+		{%for i in range(0, l)%} 
+		  
+		<!-- table rows -->
+		<tr> 
+			<td>{{i}}</td> 
+			<td>{{data[i]}}</td> 
+		  
+		{%endfor%} 
+		  
+		</tr> 
+		  
+		</table> 
+
+	</div>
+
+   </body>
+</html>
