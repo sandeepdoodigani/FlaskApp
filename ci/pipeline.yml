@@ -1,0 +1,47 @@
+---
+resources:
+- name: repo
+  type: git
+  source:
+   uri: git@github.com:sandeepdoodigani/FlaskApp.git
+   branch: master
+   private_key: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwyn02tV6nz2i/vOVCeIBP5rSMek7zeqD0bXPadUPLvH41C19c8HJ04aDtZZqGu3ditOrLKAbk+emICcMoJ+1XW4CGQHGLsFwb+mbXBeUGOUfcTka3EGSroZWGPFWJY7b3tsdaM7G8XAPzIb62gurYnF6a6R+mTnTF847K/4CSFFIWNPsbne0Us9p4RISID6gdPTkFcUVrK5hVHZSENDjijNUdbFw9YDW1GPokF1aGh2aDElhZSrKDdgC11/GF+0JHWEsHAamXvZxDmFC8MVMK1WXoPqFCiq44c7TFWZL8pI9m7bsmRatXZSyRCNdqrrtFun6LzG+tzeimeM3Z/qmjmTrlc7ae+3IPPnIFVwVlsIEfEXK5gXfJUx3r56DFkcAYaCqp/CfQEDxi2+RObTlPopp1rFlBxHyzE3EWQWMsTfeJP280s8E/j3hvZfwfCNddhzbrjRCyaki4GfzfARbnngZXcmriuy9GrFVNs2TrhaLUD45pBOLnTpJhTo3VLJ69goBw0wKB2tyrkf7nDE8jqp7p7107v2wPywfv67FzqL1v90ambDGG3FaiIRf9Uu9WnzVNkGfbnn2zWEHzBjruJCOOpQHYZaT2WVbH439G497Kb6/WVYfIb14cWlan5vJ9RJkTaCCf0FgX0EP1/AtXIB29n0UWVEi7D116szjHxw== sandeep.doodigani@gmail.com
+
+- name: non-prod
+  type: cf
+  source:
+    api: https://api.ng.bluemix.net
+    username: apikey
+    password: b55139769309c2a0534c81ba4e904775c650d34b
+    organization: venkanna.doodigani@gmail.com
+    space: dev
+    skip_cert_check: false
+- name: health-check-timer
+  type: time
+  source: {interval: 5m}
+
+jobs:
+- name: deploy
+  serial: true
+  public: true
+  plan:
+  - get: repo
+    trigger: true
+  - task: build-code
+    file: repo/ci/build.yml
+  - put: non-prod
+    params:
+     manifest: build/manifest.yml
+
+- name: healthcheck
+  serial: false
+  build_logs_to_retain: 5
+  plan:
+  - get: health-check-timer
+    trigger: true
+  - get: repo
+  - task: healthcheck
+    file: repo/healthcheck.yml
+
+     
